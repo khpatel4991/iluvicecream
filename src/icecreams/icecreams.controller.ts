@@ -8,6 +8,8 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { CreateIcecreamDto } from './dto/create-icecream.dto';
+import { UpdateIcecreamDto } from './dto/update-icecream.dto';
 import { Icecream } from './entities/icecream.entity';
 import { IcecreamsService } from './icecreams.service';
 
@@ -27,12 +29,12 @@ export class IcecreamsController {
   }
 
   @Post()
-  createOne(@Body() body: Icecream) {
+  createOne(@Body() body: CreateIcecreamDto) {
     return this.icecreamService.createOne(body);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body: Partial<Icecream>) {
+  update(@Param('id') id: string, @Body() body: UpdateIcecreamDto) {
     return this.icecreamService.update(id, body);
   }
 

@@ -1,4 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateIcecreamDto } from './dto/create-icecream.dto';
+import { UpdateIcecreamDto } from './dto/update-icecream.dto';
 import { Icecream } from './entities/icecream.entity';
 
 @Injectable()
@@ -29,11 +31,14 @@ export class IcecreamsService {
     return ice;
   }
 
-  createOne(icecreamDto: Icecream) {
-    return this.icecreams.push(icecreamDto);
+  createOne(icecreamDto: CreateIcecreamDto) {
+    return this.icecreams.push({
+      ...icecreamDto,
+      id: this.icecreams.length,
+    });
   }
 
-  update(id: string, updateIcecreamDto: Partial<Icecream>) {
+  update(id: string, updateIcecreamDto: UpdateIcecreamDto) {
     const ice = this.findOne(id);
     const idx = this.icecreams.findIndex((ice) => ice.id === Number(id));
     if (!ice) {
