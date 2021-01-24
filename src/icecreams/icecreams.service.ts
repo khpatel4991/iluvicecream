@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Icecream } from './entities/icecream.entity';
 
 @Injectable()
@@ -22,7 +22,11 @@ export class IcecreamsService {
   }
 
   findOne(id: string) {
-    return this.icecreams.find((ice) => ice.id === Number(id));
+    const ice = this.icecreams.find((ice) => ice.id === Number(id));
+    if (!ice) {
+      throw new NotFoundException(`Icecream ${id} not found`);
+    }
+    return ice;
   }
 
   createOne(icecreamDto: Icecream) {
@@ -33,7 +37,7 @@ export class IcecreamsService {
     const ice = this.findOne(id);
     const idx = this.icecreams.findIndex((ice) => ice.id === Number(id));
     if (!ice) {
-      throw new Error(`Can't find id ${id}`);
+      throw new NotFoundException(`Icecream ${id} not found`);
     }
     this.icecreams = [
       ...this.icecreams.slice(0, idx),
