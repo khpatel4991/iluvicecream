@@ -23,7 +23,7 @@ export class IcecreamsService {
     return this.icecreams.slice(Number(offset), Number(offset) + Number(limit));
   }
 
-  findOne(id: string) {
+  findOne(id: number) {
     const ice = this.icecreams.find((ice) => ice.id === Number(id));
     if (!ice) {
       throw new NotFoundException(`Icecream ${id} not found`);
@@ -38,7 +38,7 @@ export class IcecreamsService {
     });
   }
 
-  update(id: string, updateIcecreamDto: UpdateIcecreamDto) {
+  update(id: number, updateIcecreamDto: UpdateIcecreamDto) {
     const ice = this.findOne(id);
     const idx = this.icecreams.findIndex((ice) => ice.id === Number(id));
     if (!ice) {
@@ -52,7 +52,7 @@ export class IcecreamsService {
     return this.icecreams;
   }
 
-  delete(id: string) {
+  delete(id: number) {
     const idx = this.icecreams.findIndex((ice) => ice.id === Number(id));
     return this.icecreams.splice(idx, 1);
   }

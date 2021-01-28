@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { CreateIcecreamDto } from './dto/create-icecream.dto';
 import { UpdateIcecreamDto } from './dto/update-icecream.dto';
-import { Icecream } from './entities/icecream.entity';
 import { IcecreamsService } from './icecreams.service';
 
 @Controller('icecreams')
@@ -24,7 +23,7 @@ export class IcecreamsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.icecreamService.findOne(id);
   }
 
@@ -34,12 +33,12 @@ export class IcecreamsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body: UpdateIcecreamDto) {
+  update(@Param('id') id: number, @Body() body: UpdateIcecreamDto) {
     return this.icecreamService.update(id, body);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string) {
+  delete(@Param('id') id: number) {
     return this.icecreamService.delete(id);
   }
 }
